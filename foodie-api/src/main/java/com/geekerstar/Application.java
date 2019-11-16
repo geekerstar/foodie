@@ -1,7 +1,8 @@
-package com.geekerstar.mapper;
+package com.geekerstar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * @author geekerstar
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * description:
  */
 @SpringBootApplication
+@MapperScan(basePackages = "com.geekerstar.mapper")
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class,args);
