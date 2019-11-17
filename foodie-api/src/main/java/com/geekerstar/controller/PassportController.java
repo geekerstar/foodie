@@ -1,12 +1,10 @@
 package com.geekerstar.controller;
 
+import com.geekerstar.bo.UserBO;
 import com.geekerstar.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.geekerstar.util.JSONResult;
 
@@ -34,6 +32,39 @@ public class PassportController {
             return JSONResult.errorMsg("用户名已存在");
         }
         // 3.请求成功，用户名没有重复
+        return JSONResult.ok();
+    }
+
+
+    @PostMapping("/regist")
+    public JSONResult regist(@RequestBody UserBO userBO){
+        String username = userBO.getUsername();
+        String password = userBO.getPassword();
+        String confirmPassword = userBO.getConfirmPassword();
+
+        // 1.判断用户名和密码不为空
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password) || StringUtils.isBlank(confirmPassword)){
+            return JSONResult.errorMsg("用户名或密码不能为空");
+        }
+
+        // 2.查询用户名是否存在
+        Boolean isExist = userService.queryUsernameIsExist(username);
+        if (isExist){
+            return JSONResult.errorMsg("用户名已存在");
+        }
+
+        // 3.密码长度不能少于六位
+        if (password.length() < 6){
+            return JSONResult.errorMsg("密码长度不能少于6位 ");
+        }
+
+        // 4.判断两次密码是否一致
+        if (!password.equals(confirmPassword)){
+            return JSONResult.errorMsg("两次密码长度输入不一致");
+        }
+
+        // 5.实现注册
+        userService.createUser(userBO);
         return JSONResult.ok();
     }
 
