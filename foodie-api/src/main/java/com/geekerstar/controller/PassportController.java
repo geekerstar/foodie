@@ -121,4 +121,16 @@ public class PassportController {
         user.setUpdatedTime(null);
         return user;
     }
+
+    @ApiOperation(value = "注销",notes = "注销",httpMethod = "POST")
+    @PostMapping("/login")
+    public JSONResult logout(@RequestParam String userId,HttpServletRequest request, HttpServletResponse response){
+        // 清除用户cookie相关信息
+        CookieUtils.deleteCookie(request,response,"user");
+
+        // TODO 用户退出登录需要清空购物车
+        // TODO 分布式会话中需要清除用户数据
+
+        return JSONResult.ok();
+    }
 }
