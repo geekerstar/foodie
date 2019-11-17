@@ -40,7 +40,7 @@ public class TestTransServiceImpl implements TestTransService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void testPropagationTrans() {
+    public void  testPropagationTrans() {
         stuService.saveParent();
 
         try {
