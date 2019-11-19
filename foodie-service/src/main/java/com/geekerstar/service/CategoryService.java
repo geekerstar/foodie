@@ -1,6 +1,7 @@
 package com.geekerstar.service;
 
 import com.geekerstar.pojo.Category;
+import com.geekerstar.vo.CategoryVO;
 
 import java.util.List;
 
@@ -15,5 +16,12 @@ public interface CategoryService {
      * @return
      */
     List<Category> queryAllRootLevelCat();
+
+    /**
+     * 根据一级分类ID查询子分类信息
+     * @param rootCatId
+     * @return
+     */
+    List<CategoryVO> getSubCatList(Integer rootCatId);
 
 }
