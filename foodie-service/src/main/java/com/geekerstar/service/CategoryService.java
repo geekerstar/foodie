@@ -2,6 +2,7 @@ package com.geekerstar.service;
 
 import com.geekerstar.pojo.Category;
 import com.geekerstar.vo.CategoryVO;
+import com.geekerstar.vo.NewItemsVO;
 
 import java.util.List;
 
@@ -23,5 +24,12 @@ public interface CategoryService {
      * @return
      */
     List<CategoryVO> getSubCatList(Integer rootCatId);
+
+    /**
+     * 查询每个一级分类下的六条商品最新数据
+     * @param rootCatId
+     * @return
+     */
+    List<NewItemsVO> getSixNewItemsLazy(Integer rootCatId);
 
 }

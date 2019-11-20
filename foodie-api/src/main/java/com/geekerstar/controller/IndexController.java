@@ -7,6 +7,7 @@ import com.geekerstar.service.CarouselService;
 import com.geekerstar.service.CategoryService;
 import com.geekerstar.util.JSONResult;
 import com.geekerstar.vo.CategoryVO;
+import com.geekerstar.vo.NewItemsVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -64,5 +65,18 @@ public class IndexController {
         }
         List<CategoryVO> result = categoryService.getSubCatList(rootCatId);
         return JSONResult.ok(result);
+    }
+
+
+    @ApiOperation(value = "查询每个一级分类下的最新6条商品数据", notes = "查询每个一级分类下的最新6条商品数据", httpMethod = "GET")
+    @GetMapping("/sixNewItems/{rootCatId}")
+    public JSONResult sixNewItems(
+            @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
+            @PathVariable Integer rootCatId) {
+        if (rootCatId == null) {
+            return JSONResult.errorMsg("分类不存在");
+        }
+        List<NewItemsVO> list = categoryService.getSixNewItemsLazy(rootCatId);
+        return JSONResult.ok(list);
     }
 }
