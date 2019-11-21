@@ -9,6 +9,7 @@ import com.geekerstar.util.JSONResult;
 import com.geekerstar.util.PagedGridResult;
 import com.geekerstar.vo.CommentLevelCountsVO;
 import com.geekerstar.vo.ItemInfoVO;
+import com.geekerstar.vo.ShopcartVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -156,5 +157,21 @@ public class ItemsController extends BaseController{
                 pageSize);
 
         return JSONResult.ok(grid);
+    }
+
+    // 用于用户长时间未登录网站，刷新购物车中的数据（主要是商品价格），类似京东淘宝
+    @ApiOperation(value = "根据商品规格ids查找最新的商品数据", notes = "根据商品规格ids查找最新的商品数据", httpMethod = "GET")
+    @GetMapping("/refresh")
+    public JSONResult refresh(
+            @ApiParam(name = "itemSpecIds", value = "拼接的规格ids", required = true, example = "1001,1003,1005")
+            @RequestParam String itemSpecIds) {
+
+        if (StringUtils.isBlank(itemSpecIds)) {
+            return JSONResult.ok();
+        }
+
+        List<ShopcartVO> list = itemService.queryItemsBySpecIds(itemSpecIds);
+
+        return JSONResult.ok(list);
     }
 }

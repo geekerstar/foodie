@@ -2,6 +2,7 @@ package com.geekerstar.custom;
 
 import com.geekerstar.vo.ItemCommentVO;
 import com.geekerstar.vo.SearchItemsVO;
+import com.geekerstar.vo.ShopcartVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -15,7 +16,11 @@ import java.util.Map;
 public interface ItemsMapperCustom {
     List<ItemCommentVO> queryItemComments(@Param("paramsMap") Map<String, Object> map);
 
-    public List<SearchItemsVO> searchItems(@Param("paramsMap") Map<String, Object> map);
+    List<SearchItemsVO> searchItems(@Param("paramsMap") Map<String, Object> map);
 
-    public List<SearchItemsVO> searchItemsByThirdCat(@Param("paramsMap") Map<String, Object> map);
+    List<SearchItemsVO> searchItemsByThirdCat(@Param("paramsMap") Map<String, Object> map);
+
+    List<ShopcartVO> queryItemsBySpecIds(@Param("paramsList") List specIdsList);
+
+
 }

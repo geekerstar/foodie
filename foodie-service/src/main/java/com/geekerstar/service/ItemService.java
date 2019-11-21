@@ -6,6 +6,7 @@ import com.geekerstar.pojo.ItemsParam;
 import com.geekerstar.pojo.ItemsSpec;
 import com.geekerstar.util.PagedGridResult;
 import com.geekerstar.vo.CommentLevelCountsVO;
+import com.geekerstar.vo.ShopcartVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -82,5 +83,13 @@ public interface ItemService {
      */
     PagedGridResult searhItems(Integer catId, String sort,
                                       Integer page, Integer pageSize);
+
+    /**
+     * 根据规格ids查询最新的购物车中商品数据（用于刷新渲染购物车中的商品数据）
+     * @param specIds
+     * @return
+     */
+    List<ShopcartVO> queryItemsBySpecIds(String specIds);
+
 
 }
