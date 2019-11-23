@@ -14,6 +14,7 @@
         <module>foodie-pojo</module>
         <module>foodie-service</module>
         <module>foodie-mybatis-generator</module>
+        <module>foodie-payment</module>
     </modules>
 
     <packaging>pom</packaging>
