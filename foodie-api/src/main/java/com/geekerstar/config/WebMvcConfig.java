@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author geekerstar
  * date: 2019/11/23 16:02
- * description:
+ * description: 实现静态资源的映射
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

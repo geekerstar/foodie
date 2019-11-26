@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 /**
  * @author geekerstar
  * date: 2019/11/23 18:32
- * description:
+ * description: 统一异常拦截
  */
 @RestControllerAdvice
 public class CustomExceptionHandler {

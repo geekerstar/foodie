@@ -7,9 +7,8 @@ import org.springframework.stereotype.Component;
 /**
  * @author geekerstar
  * date: 2019/11/23 18:09
- * description:
+ * description: 文件上传配置
  */
-
 @Component
 @ConfigurationProperties(prefix = "file")
 @PropertySource("classpath:file-upload-prod.properties")

@@ -8,7 +8,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 /**
  * @author geekerstar
  * date: 2019/11/16 20:18
- * description:
+ * description: 主启动类
  */
 @SpringBootApplication
 @MapperScan(basePackages = "com.geekerstar.mapper")

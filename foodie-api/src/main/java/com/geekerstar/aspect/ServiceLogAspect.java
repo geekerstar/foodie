@@ -1,6 +1,5 @@
 package com.geekerstar.aspect;
 
-import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,13 +10,12 @@ import org.springframework.stereotype.Component;
 /**
  * @author geekerstar
  * date: 2019/11/17 16:48
- * description:
+ * description: AOP记录方法执行时间
  */
 @Aspect
 @Component
 public class ServiceLogAspect {
-    public static final Logger log =
-            LoggerFactory.getLogger(ServiceLogAspect.class);
+    public static final Logger log = LoggerFactory.getLogger(ServiceLogAspect.class);
 
     /**
      * AOP通知：
@@ -36,6 +34,7 @@ public class ServiceLogAspect {
      * 第三处 .. 代表该包以及其子包下的所有类方法
      * 第四处 * 代表类名，*代表所有类
      * 第五处 *(..) *代表类中的方法名，(..)表示方法中的任何参数
+     *      * com.geekerstar.service.impl..*.*(..)
      *
      * @param joinPoint
      * @return
@@ -43,21 +42,14 @@ public class ServiceLogAspect {
      */
     @Around("execution(* com.geekerstar.service.impl..*.*(..))")
     public Object recordTimeLog(ProceedingJoinPoint joinPoint) throws Throwable {
-
-        log.info("====== 开始执行 {}.{} ======",
-                joinPoint.getTarget().getClass(),
-                joinPoint.getSignature().getName());
-
+        log.info("====== 开始执行 {}.{} ======", joinPoint.getTarget().getClass(), joinPoint.getSignature().getName());
         // 记录开始时间
         long begin = System.currentTimeMillis();
-
         // 执行目标 service
         Object result = joinPoint.proceed();
-
         // 记录结束时间
         long end = System.currentTimeMillis();
         long takeTime = end - begin;
-
         if (takeTime > 3000) {
             log.error("====== 执行结束，耗时：{} 毫秒 ======", takeTime);
         } else if (takeTime > 2000) {
@@ -65,7 +57,6 @@ public class ServiceLogAspect {
         } else {
             log.info("====== 执行结束，耗时：{} 毫秒 ======", takeTime);
         }
-
         return result;
     }
 }

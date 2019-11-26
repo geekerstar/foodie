@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author geekerstar
  * date: 2019/11/23 16:59
- * description:
+ * description: 配置定时任务，定时关单
  */
 @Component
 public class OrderJob {
@@ -28,13 +28,14 @@ public class OrderJob {
      * 后续会涉及到消息队列：MQ-> RabbitMQ, RocketMQ, Kafka, ZeroMQ...
      *      延时任务（队列）
      *      10:12分下单的，未付款（10）状态，11:12分检查，如果当前状态还是10，则直接关闭订单即可
+     *
+     *      或者使用分布式定时任务，如Elastic-job或者XXL-job实现，有待研究
      */
 
 //    @Scheduled(cron = "0/3 * * * * ?")
 //    @Scheduled(cron = "0 0 0/1 * * ?")
     public void autoCloseOrder() {
         orderService.closeOrder();
-        System.out.println("执行定时任务，当前时间为："
-                + DateUtil.getCurrentDateString(DateUtil.DATETIME_PATTERN));
+        System.out.println("执行定时任务，当前时间为：" + DateUtil.getCurrentDateString(DateUtil.DATETIME_PATTERN));
     }
 }
